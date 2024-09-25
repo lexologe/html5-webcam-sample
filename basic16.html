@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display Basic Stream 16:x</title>
+ 
+<style>
+#container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+}
+#videoElement {
+	width: 500px;
+	height: 375px;
+	background-color: #666;
+}
+</style>
+</head>
+ 
+<body>
+<div id="container">
+
+  <video
+    id="video"
+    src="blob:https://developer.apple.com/b264be87-e499-4c67-b8be-744f814a0ce6"
+    controls=""
+    autoplay="true"
+    width="416"
+    height="234"
+    disableremoteplayback="">
+  </video>
+</div>
+<script>
+var video = document.querySelector("#videoElement");
+</script>
+</body>
+</html>
