@@ -1,36 +1,35 @@
-<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Display Webcam Stream</title>
- 
-<style>
-#container {
-	margin: 0px auto;
-	width: 500px;
-	height: 375px;
-	border: 10px #333 solid;
-}
-#videoElement {
-	width: 500px;
-	height: 375px;
-	background-color: #666;
-}
-</style>
-</head>
- 
-<body>
-<div id="container">
+  <head>
+    <title>Hls.js demo - basic usage</title>
+  </head>
 
-  <video
-    id="video"
-    src="https://nasa-i.akamaihd.net/hls/live/253565/NTV-Public1/master.m3u8"
-    controls=""
-    autoplay="true">
-  </video>
-</div>
-<script>
-var video = document.querySelector("#videoElement");
-</script>
-</body>
+  <body>
+    <script src="https://hlsjs.video-dev.org/dist/hls.js"></script>
+
+    <h1>Hls.js demo - basic usage</h1>
+    <video height="600" id="video" controls></video>
+  </body>
+  <script>
+    var video = document.getElementById('video');
+    if (Hls.isSupported()) {
+      var hls = new Hls({
+        debug: true,
+      });
+      hls.loadSource('https://nasa-i.akamaihd.net/hls/live/253565/NTV-Public1/master.m3u8');
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+        video.muted = true;
+        video.play();
+      });
+    }
+    // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+    // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element through the `src` property.
+    // This is using the built-in support of the plain video element, without using hls.js.
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = 'https://nasa-i.akamaihd.net/hls/live/253565/NTV-Public1/master.m3u8';
+      video.addEventListener('canplay', function () {
+        video.play();
+      });
+    }
+  </script>
 </html>
